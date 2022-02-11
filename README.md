@@ -1,6 +1,6 @@
-# Node.js TODO-List App
+# Node.js TODO-List
 
-Simple todo-list application built with Node.js, Express and MongoDB.
+Simple todo-list application built with Node.js, Express, MongoDB and Bulma framework.
 
 ### Technologies Used:
 
