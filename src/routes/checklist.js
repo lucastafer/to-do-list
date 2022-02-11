@@ -1,9 +1,7 @@
 const express = require('express')
-const checklist = require('../models/checklist')
-
+const Checklist = require('../models/checklist')
 const router = express.Router()
 
-const Checklist = require('../models/checklist')
 
 router.get('/', async(req, res) => {
     try {
@@ -11,7 +9,7 @@ router.get('/', async(req, res) => {
         console.log(checklists)
         res.status(200).render('checklists/index', {checklists: checklists})
     }catch (error) {
-        res.status(500).render('pages/error', {error: 'Erro ao exibir as listas.'})
+        res.status(500).render('pages/error', {error: 'Error getting checklists.'})
     }
 })
 
@@ -20,16 +18,7 @@ router.get('/new', async(req, res) => {
         let checklist = new Checklist()
         res.status(200).render('checklists/new', {checklist: checklist})
     }catch (error) {
-        res.status(500).render('pages/error', {errors: 'Erro ao carregar o formulário.'})
-    }
-})
-
-router.get('/:id/edit', async(req, res) => {
-    try{
-        let checklist = await Checklist.findById(req.params.id)
-        res.status(200).render('checklists/edit', {checklist: checklist})
-    }catch(error){
-        res.status(500).render('pages/error', {error: 'Erro ao exibir a edição de listas de tarefas.'})
+        res.status(500).render('pages/error', {errors: 'Error loading form.'})
     }
 })
 
@@ -44,9 +33,18 @@ router.post('/', async(req,res) => {
     }
 })
 
+router.get('/:id/edit', async(req, res) => {
+    try{
+        let checklist = await Checklist.findById(req.params.id)
+        res.status(200).render('checklists/edit', {checklist: checklist})
+    }catch(error){
+        res.status(500).render('pages/error', {error: 'Erro ao exibir a edição de listas de tarefas.'})
+    }
+})
+
 router.get('/:id', async(req, res) => {
     try {
-        let checklist = await Checklist.findById(req.params.id).populate('tasks') //O populate faz o mongoose pegar as tasks que estão no array de tasks e as injeta. É tipo o aggregate do lá do mongo.
+        let checklist = await Checklist.findById(req.params.id).populate('tasks')
         res.status(200).render('checklists/show', {checklist: checklist})
     }catch (error) {
         res.status(500).render('pages/error', {error: 'Erro ao exibir as listas de tarefas.'})

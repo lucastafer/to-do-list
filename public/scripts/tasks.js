@@ -1,4 +1,4 @@
-const setTagAsDone = async (element, id) => {
+const markDone = async (element, id) => {
     event.preventDefault()
     try {
         let headers = new Headers({'Content-Type': 'application/json'})

@@ -2,36 +2,38 @@
 
 <%- include('../layouts/menu') %>
 
-<section class="section">
-    <div class="container">
-      <div class="main-card card">
-        <div class="columns">
-          <div class="column">
-            <h1 class="title size-4"><%= checklist.name %></h1>
-          </div>
-          <div class="column is-one-third">
-            <a href="/checklists/<%= checklist._id %>/tasks/new" class="button is-link is-small">New Task</a>
-            <a href="/checklists" class="button is-small">Back</a>
-          </div>
-        </div>
-
-        <hr />
-
-        <% checklist.tasks.forEach(task => { %>
+    <section class="section">
+      <div class="container">
+        <div class="main-card card">
           <div class="columns">
+            <div class="column">
+              <h1 class="title size-4">
+                <%= checklist.name %>
+              </h1>
+            </div>
+            <div class="column is-one-third">
+              <a href="/checklists/<%= checklist._id %>/tasks/new" class="button is-link is-small">New Task</a>
+              <a href="/checklists" class="button is-small">Back</a>
+            </div>
+          </div>
+
+          <hr />
+
+          <% checklist.tasks.forEach(task=> { %>
+            <div class="columns">
               <div class="column is-four-fifths <%= task.done ? 'has-text-success is-italic' : '' %>">
-                <input type="checkbox" onchange="setTagAsDone(this, '<%= task._id %>')" <%= task.done ? 'checked' : '' %>/>
+                <input type="checkbox" onchange="markDone(this, '<%= task._id %>')" <%=task.done ? 'checked' : '' %>/>
                 <%= task.name %>
               </div>
               <div class="column is-one-fifth">
                 <a href="/tasks/<%= task._id %>?_method=delete" class="button is-danger is-small">Remove</a>
               </div>
-          </div>
-        <% }) %>
+            </div>
+            <% }) %>
+        </div>
       </div>
-    </div>
-</section>
+    </section>
 
-<script src="/javascripts/tasks.js"></script>
+    <script src="/scripts/tasks.js"></script>
 
 <%- include('../layouts/footer') %>
