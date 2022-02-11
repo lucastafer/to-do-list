@@ -9,6 +9,7 @@ Simple todo-list application built with Node.js, Express, MongoDB and Bulma fram
 - EJS
 - MongoDB
 - Mongoose
+- Bulma (CSS framework)
 
 ### How To Run
 
